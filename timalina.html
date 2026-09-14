@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tímalína — Grettis saga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14171a;
+  --panel:#1b1f22;
+  --panel-2:#20252a;
+  --hairline:#2c3236;
+  --bone:#e9e4d8;
+  --bone-dim:#c8c2b4;
+  --mist:#93a099;
+  --moss:#8ba07c;
+  --moss-dim:#5f7256;
+  --ember:#c1622d;
+  --ember-bright:#e0824c;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--bone);
+  font-family:'Lora', serif;
+  line-height:1.7;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  padding:16px 32px;
+  background:rgba(20,23,26,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+}
+.topbar .brand{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:17px;
+  text-decoration:none;
+  color:var(--bone);
+  white-space:nowrap;
+}
+.topbar nav{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.topbar nav a{
+  text-decoration:none;
+  color:var(--mist);
+  font-size:14px;
+  font-family:'Fraunces', serif;
+  letter-spacing:.01em;
+  padding:4px 2px;
+  border-bottom:1px solid transparent;
+}
+.topbar nav a:hover, .topbar nav a.current{
+  color:var(--ember-bright);
+  border-bottom-color:var(--ember-bright);
+}
+@media (max-width:700px){
+  .topbar{padding:14px 18px;}
+  .topbar nav{gap:14px;}
+  .topbar nav a{font-size:13px;}
+}
+
+.page-head{
+  max-width:760px;
+  margin:0 auto;
+  padding:56px 24px 20px;
+}
+.page-head .eftirn{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  color:var(--moss);
+  font-size:13px;
+  margin:0 0 8px;
+}
+.page-head h1{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:38px;
+  margin:0 0 12px;
+}
+.page-head p{
+  color:var(--mist);
+  font-size:15px;
+  max-width:600px;
+}
+.content{
+  max-width:760px;
+  margin:0 auto;
+  padding:20px 24px 120px;
+}
+.timeline{
+  list-style:none;
+  margin:0;
+  padding:0;
+  position:relative;
+}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:5px;
+  top:6px;
+  bottom:6px;
+  width:1px;
+  background:var(--hairline);
+}
+.t-item{
+  position:relative;
+  padding:0 0 26px 32px;
+}
+.t-dot{
+  position:absolute;
+  left:0; top:6px;
+  width:11px; height:11px;
+  border-radius:50%;
+  background:var(--ink);
+  border:2px solid var(--ember);
+}
+.t-kafli{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:14px;
+  color:var(--ember-bright);
+  text-decoration:none;
+}
+.t-kafli:hover{text-decoration:underline;}
+.t-body p{
+  margin:6px 0 4px;
+  font-size:15.5px;
+  color:var(--bone-dim);
+}
+.t-meta{
+  font-size:12.5px;
+  color:var(--mist);
+  font-family:'Fraunces', serif;
+  font-style:italic;
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Grettis saga</a>
+  <nav>
+    <a href="index.html">Forsíða</a>
+    <a href="grettis-saga.html">Lesa söguna</a>
+    <a href="personur.html">Persónur</a>
+    <a href="timalina.html" class="current">Tímalína</a>
+    <a href="aettartre.html">Ættartré</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="prof.html">Próf</a>
+    <a href="myndbond.html">Myndbönd</a>
+  </nav>
+</header>
+<div class="page-head">
+  <p class="eftirn">Ártöl og aldur Grettis</p>
+  <h1>Tímalína atburða</h1>
+  <p>Helstu atburðir sögunnar í réttri röð, með áætluðu ártali og aldri Grettis þar sem það er þekkt. Smelltu á kaflanúmer til að lesa kaflann í heild.</p>
+</div>
+<div class="content">
+  <ul class="timeline">
+  
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-1">1. kafli</a>
+          <p>Önundur, langafi Grettis, herjar til Skotlands og Írlands með félögum sínum og vinnur Kjarval konung.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-2">2. kafli</a>
+          <p>Orrustan í Hafursfirði: Önundur berst gegn Haraldi hárfagra og missir fótinn — upp frá því kallaður tréfótur.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-5">5. kafli</a>
+          <p>Bálki Blængsson og Hallvarður súgandi, félagar Önundar, sigla til Íslands og nema land í Hrútafirði og Súgandafirði.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-9">9. kafli</a>
+          <p>Önundur siglir sjálfur til Íslands, nemur land á Ströndum og reisir bú í Kaldbak.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-11">11. kafli</a>
+          <p>Önundur eignast soninn Þorgrím (afi Grettis) með Þórdísi; hann er snemma kallaður hærukollur.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-13">13. kafli</a>
+          <p>Þorgrímur hærukollur kaupir Bjarg í Miðfirði. Sonur hans Ásmundur hærulangur, faðir Grettis, fæðist og elst þar upp.</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-14">14. kafli</a>
+          <p>Grettir og bernskubrek hans</p>
+          <span class="t-meta">1006 · 10 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-15">15. kafli</a>
+          <p>Knattleikur á Miðfjarðarísi</p>
+          <span class="t-meta">1010 · 14 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-16">16. kafli</a>
+          <p>Þorkell krafla spáir fyrir sonum Ásmundar. Þingreið — Grettir vegur Skeggja, fyrri útlegðardómur</p>
+          <span class="t-meta">1011 · 15 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-17">17. kafli</a>
+          <p>Sigling utan með Hafliða</p>
+          <span class="t-meta">1011 · 15 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-18">18. kafli</a>
+          <p>Hjá Þorfinni í Háramarsey: fram til jóla, rýfur haug Kárs</p>
+          <span class="t-meta">1011-12</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-19">19. kafli</a>
+          <p>Aðfangadagur jóla — berst við tólf berserki</p>
+          <span class="t-meta">1011-12 · 16 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-20">20. kafli</a>
+          <p>Vist hjá Þorfinni fram til vors</p>
+          <span class="t-meta">1011-12 · 16 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-21">21. kafli</a>
+          <p>Sumar í Vogum; hjá Þorkeli í Sálfti — glímir við híðbjörn</p>
+          <span class="t-meta">1012-13 · 17 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-22">22. kafli</a>
+          <p>Vist til vors hjá Þorkeli. Í Vogum vegur Björn, í Steinkeri vegur Hjarranda, hjá Þorfinni aftur, í Túnsbergi vegur Gunnar</p>
+          <span class="t-meta">1013-14 · 18 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-24">24. kafli</a>
+          <p>Heimferð til Íslands</p>
+          <span class="t-meta">1014</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-28">28. kafli</a>
+          <p>Grettir kemur út í Skagafirði. Auðun og glíma, þáttur Barða</p>
+          <span class="t-meta">1014 · 18 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-29">29. kafli</a>
+          <p>Hestaþing á Langafit</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-30">30. kafli</a>
+          <p>Bardagi við Grettishaf</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-31">31. kafli</a>
+          <p>Grettir situr um kyrrt til tvímánaðar. Heiðarvíg. Grettir og Barði finnast við Þóreyjargnúp</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-32">32. kafli</a>
+          <p>Reimleikar hefjast í Forsæludal</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-34">34. kafli</a>
+          <p>Grettir og Glámur glíma. Grettir situr heima</p>
+          <span class="t-meta">1014-15</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-36">36. kafli</a>
+          <p>Þorbjörn ferðalangur eggjar Gretti. Grettir á Gásum — ferðalangur veginn. Önnur utanför hefst</p>
+          <span class="t-meta">1014 · 19 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-37">37. kafli</a>
+          <p>Kemur að áliðnu sumri til Noregs</p>
+          <span class="t-meta">1015 · 19 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-38">38. kafli</a>
+          <p>Fer norður með landi. Þórissynir brenna inni. Leitar á konungsfund í Þrándheimi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-39">39. kafli</a>
+          <p>Tilraun til skírslu (guðsdóms)</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-40">40. kafli</a>
+          <p>Fer austur á Jaðar, drepur Snækoll berserk og bjargar Einari bónda</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-41">41. kafli</a>
+          <p>Eftir jól til Túnsbergs og er þar til vors. Fer til Íslands um sumarið</p>
+          <span class="t-meta">1016 · 20 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-42">42. kafli</a>
+          <p>Þorbjörn öxnamegin drepur Atla, bróður Grettis</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-46">46. kafli</a>
+          <p>Grettir dæmdur sekur skógarmaður á alþingi</p>
+          <span class="t-meta">1016 · 20 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-47">47. kafli</a>
+          <p>Kemur út. Söðulkolluvísur. Er framyfir túnannir á Bjargi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-48">48. kafli</a>
+          <p>Fellir Þorbjörn öxnamegin og Arnór — hefnir Atla. Er lengi í Ljárskógum um haustið</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-49">49. kafli</a>
+          <p>Kemur á Reykhóla nærri veturnóttum og dvelur þar einn vetur</p>
+          <span class="t-meta">1016-17 · 20 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-51">51. kafli</a>
+          <p>Um vorið í Langadal; á Vestfjörðum um sumarið</p>
+          <span class="t-meta">21 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-53">53. kafli</a>
+          <p>Vetur í Ljárskógum hjá Þorsteini. Er hjá Grími fram yfir þing</p>
+          <span class="t-meta">1017-18 · 22 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-54">54. kafli</a>
+          <p>Situr á Kili um sumarið, leitar ráða hjá Skafta og Grími, fer á Arnarvatnsheiði um haustið — hittir Loft (Hallmund)</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-55">55. kafli</a>
+          <p>Fyrsti vetur á Arnarvatnsheiði. Grímur norðlenski flugumaður er veginn</p>
+          <span class="t-meta">1018-19 · 23 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-56">56. kafli</a>
+          <p>Annar og þriðji vetur á heiðinni. Þórir rauðskeggur flugumaður er veginn</p>
+          <span class="t-meta">1019-21 · 24-25 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-57">57. kafli</a>
+          <p>Bardagi í Hamraskarði. Grettir í Hallmundarhelli. Fer suður á Mýrar um haustið</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-58">58. kafli</a>
+          <p>Fyrsti vetur í Fagraskógarfjalli</p>
+          <span class="t-meta">1021-22 · 26 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-59">59. kafli</a>
+          <p>Viðureign við Gísla nær réttum. Annar vetur í Fagraskógarfjalli</p>
+          <span class="t-meta">1022-23 · 27 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-60">60. kafli</a>
+          <p>Sumar og haust í Fagraskógarfjalli, bardagi í Grettisodda. Þriðji vetur þar</p>
+          <span class="t-meta">1023-24 · 28 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-61">61. kafli</a>
+          <p>Leitar til Gríms um þing, fer til fundar við Hallmund og er hjá honum um sumarið</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-61">61. kafli</a>
+          <p>Fer um haustið í Þórisdal, veturseta</p>
+          <span class="t-meta">1024-25 · 29 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-61">61. kafli</a>
+          <p>Leitar sér liðs á Austfjörðum um sumarið og veturinn</p>
+          <span class="t-meta">1025-27 · 30 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-62">62. kafli</a>
+          <p>Dauði Hallmundar, vinar Grettis</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-63">63. kafli</a>
+          <p>Liggur úti á Möðrudalsheiði og Reykjaheiði um sumarið</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-64">64. kafli</a>
+          <p>Kemur nærri jólum í Bárðardal, glímir við tröll, dvelur þar veturinn</p>
+          <span class="t-meta">1027-28 · 31 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-67">67. kafli</a>
+          <p>Fer á fund Guðmundar ríka sem ráðleggur honum Drangey. Situr um sumarið við Bröttubrekku</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-68">68. kafli</a>
+          <p>Viðureign við Þórodd Snorrason</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-69">69. kafli</a>
+          <p>Illugi og Grettir fara í Drangey um haustið</p>
+          <span class="t-meta">1028 · 31 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-70">70. kafli</a>
+          <p>Höfðingjar í Skagafirði eiga hlut í Drangey</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-71">71. kafli</a>
+          <p>Bændur hitta Gretti. Fyrsti vetur í Drangey</p>
+          <span class="t-meta">1028-29 · 32 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-72">72. kafli</a>
+          <p>Vorþing og sveitaglíma í Hegranesi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-73">73. kafli</a>
+          <p>Þorbjörn öngull fer að áliðnu sumri til Drangeyjar</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-74">74. kafli</a>
+          <p>Annar vetur í Drangey</p>
+          <span class="t-meta">1029-30 · 33 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-75">75. kafli</a>
+          <p>Hið fræga sund Grettis til lands</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-76">76. kafli</a>
+          <p>Hæringur hrapar til bana. Þriðji vetur Grettis í Drangey. Snorri goði andast</p>
+          <span class="t-meta">34 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-77">77. kafli</a>
+          <p>Umræður á þingi um sektarár Grettis</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-78">78. kafli</a>
+          <p>Ferð Þuríðar, fóstru Þorbjörns öngla, til Drangeyjar</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-79">79. kafli</a>
+          <p>Þuríður magnar rótartréð. Grettir særir sig á fæti með exi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-80">80. kafli</a>
+          <p>Sárið versnar, veðrið hamlar björgun</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-81">81. kafli</a>
+          <p>Þorbjörn öngull safnar liði til leiðangurs í Drangey</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-82">82. kafli</a>
+          <p>Aðför og fall Grettis og Illuga bróður hans</p>
+          <span class="t-meta">1031 · 35 ára</span>
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-83">83. kafli</a>
+          <p>Eftirmál. Frændur Grettis og Illuga safnast að Ásdísi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-85">85. kafli</a>
+          <p>Skeggi sækir lík Grettis og Illuga til greftrunar. Þorbjörn öngull siglir til Noregs</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-86">86. kafli</a>
+          <p>Þorsteinn drómundur hefnir Grettis með því að vega Þorbjörn öngul í Miklagarði</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-87">87. kafli</a>
+          <p>Þorsteinn situr í dýflissu, dæmdur til dauða</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-88">88. kafli</a>
+          <p>Spes heyrir kveðskap Þorsteins og lætur leysa hann úr haldi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-89">89. kafli</a>
+          <p>Ástarsamband Spesar og Þorsteins í leyni</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-91">91. kafli</a>
+          <p>Spes fær skilnað og giftist Þorsteini drómundi</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-92">92. kafli</a>
+          <p>Þau selja eigur sínar og fara í pílagrímsferð til Rómar</p>
+          
+        </div>
+      </li>
+      <li class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-body">
+          <a class="t-kafli" href="grettis-saga.html#kafli-93">93. kafli</a>
+          <p>Þau ljúka ævinni sem einsetufólk í Róm — sögulok</p>
+          
+        </div>
+      </li>
+  </ul>
+</div>
+</body>
+</html>

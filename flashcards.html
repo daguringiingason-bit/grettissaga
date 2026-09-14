@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards — Grettis saga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14171a;
+  --panel:#1b1f22;
+  --panel-2:#20252a;
+  --hairline:#2c3236;
+  --bone:#e9e4d8;
+  --bone-dim:#c8c2b4;
+  --mist:#93a099;
+  --moss:#8ba07c;
+  --moss-dim:#5f7256;
+  --ember:#c1622d;
+  --ember-bright:#e0824c;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--bone);
+  font-family:'Lora', serif;
+  line-height:1.7;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  padding:16px 32px;
+  background:rgba(20,23,26,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+}
+.topbar .brand{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:17px;
+  text-decoration:none;
+  color:var(--bone);
+  white-space:nowrap;
+}
+.topbar nav{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.topbar nav a{
+  text-decoration:none;
+  color:var(--mist);
+  font-size:14px;
+  font-family:'Fraunces', serif;
+  letter-spacing:.01em;
+  padding:4px 2px;
+  border-bottom:1px solid transparent;
+}
+.topbar nav a:hover, .topbar nav a.current{
+  color:var(--ember-bright);
+  border-bottom-color:var(--ember-bright);
+}
+@media (max-width:700px){
+  .topbar{padding:14px 18px;}
+  .topbar nav{gap:14px;}
+  .topbar nav a{font-size:13px;}
+}
+
+
+.page-head{
+  max-width:720px;
+  margin:0 auto;
+  padding:56px 24px 10px;
+  text-align:center;
+}
+.page-head .eftirn{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  color:var(--moss);
+  font-size:13px;
+  margin:0 0 8px;
+}
+.page-head h1{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:38px;
+  margin:0 0 12px;
+}
+.page-head p{
+  color:var(--mist);
+  font-size:15px;
+}
+.fc-wrap{
+  max-width:560px;
+  margin:0 auto;
+  padding:20px 24px 100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.fc-progress{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  color:var(--mist);
+  font-size:13px;
+  margin-bottom:18px;
+}
+.fc-scene{
+  width:100%;
+  aspect-ratio:3/2;
+  perspective:1400px;
+  cursor:pointer;
+}
+.fc-card{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.fc-scene.flipped .fc-card{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:10px;
+  border:1px solid var(--hairline);
+  background:var(--panel);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  text-align:center;
+}
+.fc-face .tag{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-size:12px;
+  color:var(--moss);
+  margin-bottom:14px;
+}
+.fc-face p{
+  font-size:19px;
+  color:var(--bone);
+  line-height:1.5;
+  margin:0;
+}
+.fc-back{
+  transform:rotateY(180deg);
+  border-color:var(--moss);
+}
+.fc-back p{color:var(--bone-dim); font-size:17px;}
+.fc-hint{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--mist);
+}
+.fc-controls{
+  display:flex;
+  gap:12px;
+  margin-top:26px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.fc-controls button{
+  background:transparent;
+  border:1px solid var(--hairline);
+  color:var(--bone-dim);
+  font-family:'Lora', serif;
+  font-size:14px;
+  padding:9px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+.fc-controls button:hover{border-color:var(--moss); color:var(--bone);}
+.fc-controls button.primary{
+  border-color:var(--ember);
+  color:var(--ember-bright);
+}
+.further{
+  margin-top:40px;
+  font-size:14px;
+  color:var(--mist);
+  text-align:center;
+}
+.further a{color:var(--moss); text-decoration:underline; text-underline-offset:3px;}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Grettis saga</a>
+  <nav>
+    <a href="index.html">Forsíða</a>
+    <a href="grettis-saga.html">Lesa söguna</a>
+    <a href="personur.html">Persónur</a>
+    <a href="timalina.html">Tímalína</a>
+    <a href="aettartre.html">Ættartré</a>
+    <a href="flashcards.html" class="current">Flashcards</a>
+    <a href="prof.html">Próf</a>
+    <a href="myndbond.html">Myndbönd</a>
+  </nav>
+</header>
+<div class="page-head">
+  <p class="eftirn">Æfðu þig</p>
+  <h1>Flashcards</h1>
+  <p>Smelltu á spjaldið til að sjá svarið. Notaðu hnappana til að fara áfram, til baka eða stokka spilunum.</p>
+</div>
+<div class="fc-wrap">
+  <p class="fc-progress" id="progress"></p>
+  <div class="fc-scene" id="scene">
+    <div class="fc-card" id="card">
+      <div class="fc-face fc-front">
+        <span class="tag">Spurning</span>
+        <p id="qText"></p>
+      </div>
+      <div class="fc-face fc-back">
+        <span class="tag">Svar</span>
+        <p id="aText"></p>
+      </div>
+    </div>
+  </div>
+  <p class="fc-hint">Smelltu til að fletta</p>
+  <div class="fc-controls">
+    <button id="prevBtn">&larr; Fyrra</button>
+    <button id="shuffleBtn">Stokka</button>
+    <button class="primary" id="nextBtn">Næsta &rarr;</button>
+  </div>
+  <div class="further">
+    Fleiri æfingaspurningar: <a href="https://quizlet.com/is/839777813/grettis-saga-prof-flash-cards/" target="_blank" rel="noopener">Grettis saga á Quizlet</a>
+  </div>
+</div>
+<script id="cardData" type="application/json">[{"q": "Hvað gerðist við Önund í orrustunni í Hafursfirði?", "a": "Hann missti fótinn fyrir neðan hné og var upp frá því kallaður Önundur tréfótur."}, {"q": "Hvað hét móðir Grettis?", "a": "Ásdís á Bjargi."}, {"q": "Hvað hét faðir Grettis og hvers vegna var hann kallaður hærulangur?", "a": "Ásmundur hærulangur; hann varð grár í hári óvenju ungur að aldri."}, {"q": "Hver voru verkefnin þrjú sem Ásmundur fól Gretti sem barni?", "a": "Að gæta gæsanna, strjúka bak föður síns á kvöldin og gæta hrossanna, sérstaklega hryssuna Kengálu."}, {"q": "Af hverju er Grettir fyrst dæmdur í útlegð, 15 ára gamall?", "a": "Hann drap húskarlinn Skeggja í deilu um týnt nesti á leið til alþingis."}, {"q": "Hvað er Jökulsnautur?", "a": "Sverð sem Ásdís, móðir Grettis, gaf honum áður en hann sigldi til Noregs."}, {"q": "Hvað afrekar Grettir hjá Þorfinni í Háramarsey um jólin?", "a": "Hann vegur berserkina Þóri þömb og Ögmund illa, ásamt átta mönnum þeirra."}, {"q": "Hver er Glámur?", "a": "Undarlegur sauðamaður sem verður sjálfur að reimleikadraug eftir dularfullan dauða sinn."}, {"q": "Hvaða bölvun leggur Glámur á Gretti?", "a": "Að hann verði aldrei sterkari en þá, verði einmana útlagi og sjái ávallt augu Gláms fyrir sér í myrkri."}, {"q": "Hver drepur Atla, bróður Grettis?", "a": "Þorbjörn öxnamegin."}, {"q": "Hver er Hallmundur?", "a": "Dularfullur útlagi sem Grettir kynnist fyrst sem 'Loft' á Kili; verður síðar vinur hans og skýlir honum í helli sínum."}, {"q": "Hvers vegna ráðleggur Guðmundur ríki Gretti að fara í Drangey?", "a": "Vegna þess að eyjan er nær ókleif og því öruggt vígi fyrir útlaga."}, {"q": "Hver fylgir Gretti í útlegðina í Drangey?", "a": "Illugi, yngsti bróðir hans."}, {"q": "Hvernig deyr Grettir að lokum?", "a": "Fótur hans sýkist eftir slys með bölvuðu reka­viðartré sem Þuríður magnaði; Þorbjörn öngull og menn hans ráðast þá á hann."}, {"q": "Hver hefnir Grettis?", "a": "Þorsteinn drómundur, hálfbróðir hans, sem vegur Þorbjörn öngul í Miklagarði."}, {"q": "Hver er Spes?", "a": "Göfug og stórættuð kona í Miklagarði sem verður síðar eiginkona Þorsteins drómundar."}, {"q": "Hversu lengi var Grettir samfellt í útlegð?", "a": "Í um það bil 19 ár."}, {"q": "Hvað er merkilegt við hið fræga sund Grettis?", "a": "Hann synti langa leið frá Drangey til lands til að sækja eld eftir að hann slokknaði á eyjunni."}, {"q": "Hvað gerir Grettir við híðbjörn í Noregi?", "a": "Hann drepur björninn með sverði eftir að Björn, frændi Þorkels, klúðrar eigin tilraun."}, {"q": "Hver er Kár draugur?", "a": "Framliðinn faðir Þorfinns í Háramarsey sem gengur aftur; Grettir vinnur hann í haugi hans og sækir fjársjóð."}, {"q": "Hvernig er Grettir lýstur sem barn?", "a": "Ódæll, fátalaður og bellinn í orðum og gjörðum, en sterkur og hagorður í níði um aðra."}, {"q": "Hver er elstur systkina Grettis og hvernig er honum lýst?", "a": "Atli; gegn maður, gæfur, hægur og hógvær sem öllum líkaði vel við."}, {"q": "Hvað heitir hesturinn sem Grettir á að gæta og fer illa með?", "a": "Kengála, uppáhaldshryssa Ásmundar; Grettir flær af henni skinn svo hún vill síður vera úti."}, {"q": "Hver talar máli Grettis fyrir jarli í Noregi eftir vígin á Björn, Hjarranda og Gunnar?", "a": "Þorfinnur, Þorsteinn drómundur og Bersi Skáld-Torfuson."}]</script>
+<script>
+let cards = JSON.parse(document.getElementById('cardData').textContent);
+let order = cards.map((_, i) => i);
+let idx = 0;
+
+const scene = document.getElementById('scene');
+const qText = document.getElementById('qText');
+const aText = document.getElementById('aText');
+const progress = document.getElementById('progress');
+
+function render(){
+  scene.classList.remove('flipped');
+  const c = cards[order[idx]];
+  qText.textContent = c.q;
+  aText.textContent = c.a;
+  progress.textContent = `Spjald ${idx+1} af ${cards.length}`;
+}
+
+scene.addEventListener('click', () => scene.classList.toggle('flipped'));
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  idx = (idx + 1) % order.length;
+  render();
+});
+document.getElementById('prevBtn').addEventListener('click', () => {
+  idx = (idx - 1 + order.length) % order.length;
+  render();
+});
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  for (let i = order.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  idx = 0;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
