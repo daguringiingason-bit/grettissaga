@@ -169,12 +169,21 @@ a{color:inherit;}
   border-radius:10px;
   padding:18px;
 }
-.player-panel video{
+.player-frame-wrap{
+  position:relative;
   width:100%;
+  aspect-ratio:16/9;
   border-radius:6px;
+  overflow:hidden;
   background:#000;
-  display:block;
   margin-bottom:16px;
+}
+.player-frame-wrap iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
 }
 .player-title{
   font-family:'Fraunces', serif;
@@ -239,9 +248,104 @@ a{color:inherit;}
   padding:60px 20px;
 }
 
+
+.pin-gate{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.pin-box{
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  border-radius:12px;
+  padding:36px 32px;
+  max-width:320px;
+  width:100%;
+  text-align:center;
+}
+.pin-box h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:22px;
+  color:var(--bone);
+  margin:0 0 8px;
+}
+.pin-box p{
+  font-size:13.5px;
+  color:var(--mist);
+  margin:0 0 20px;
+}
+.pin-box input{
+  width:100%;
+  background:var(--ink);
+  border:1px solid var(--hairline);
+  color:var(--bone);
+  border-radius:8px;
+  padding:12px;
+  font-family:'Fraunces', serif;
+  font-size:24px;
+  letter-spacing:0.5em;
+  text-align:center;
+  margin-bottom:14px;
+  box-sizing:border-box;
+}
+.pin-box input:focus{ outline:none; border-color:var(--moss); }
+.pin-box button{
+  width:100%;
+  background:var(--moss-dim);
+  border:none;
+  color:var(--bone);
+  font-family:'Fraunces', serif;
+  font-size:15px;
+  padding:11px;
+  border-radius:24px;
+  cursor:pointer;
+}
+.pin-box button:hover{ background:var(--moss); }
+.pin-error{
+  color:var(--ember-bright);
+  font-size:12.5px;
+  margin-top:12px;
+  display:none;
+}
 </style>
 </head>
 <body>
+<div class="pin-gate" id="pinGate">
+  <div class="pin-box">
+    <h2>Grettis saga</h2>
+    <p>Sláðu inn PIN-ið til að halda áfram</p>
+    <input type="password" id="pinInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+    <button id="pinSubmit">Áfram</button>
+    <p class="pin-error" id="pinError">Rangt PIN, reyndu aftur.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'grettis-pin-ok';
+  var CODE = '1234';
+  var gate = document.getElementById('pinGate');
+  if (localStorage.getItem(KEY) === 'yes') {
+    gate.style.display = 'none';
+  } else {
+    var input = document.getElementById('pinInput');
+    function tryUnlock(){
+      if (input.value === CODE) {
+        localStorage.setItem(KEY, 'yes');
+        gate.style.display = 'none';
+      } else {
+        document.getElementById('pinError').style.display = 'block';
+        input.value = '';
+      }
+    }
+    document.getElementById('pinSubmit').addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') tryUnlock(); });
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+})();
+</script>
+
 <header class="topbar">
   <a class="brand" href="index.html">Grettis saga</a>
   <nav>
@@ -267,12 +371,16 @@ a{color:inherit;}
   </div>
 </div>
 
-<script id="videoData" type="application/json">[{"id": "onundar", "title": "Önundar þáttur tréfóts", "range": "1–12", "file": "videos/1-12-onundarthattur.mp4", "available": true}, {"id": "bernska", "title": "Bernskubrek Grettis og Noregur", "range": "13–24", "file": null, "available": false}, {"id": "heimkoma", "title": "Heimkoma Grettis frá Noregi", "range": "25–31", "file": "videos/25-31-heimkoma.mp4", "available": true}, {"id": "glamur", "title": "Glámur, Noregur og dæmdur skógarmaður", "range": "32–48", "file": "videos/32-48-glamur.mp4", "available": true}, {"id": "utlegd", "title": "Tíu ár í útlegð", "range": "49–63", "file": "videos/49-63-utlegd.mp4", "available": true}, {"id": "drangey1", "title": "Drangey og lífslok Grettis (I)", "range": "64–76", "file": "videos/64-76-drangey1.mp4", "available": true}, {"id": "drangey2", "title": "Drangey og lífslok Grettis (II)", "range": "77–86", "file": null, "available": false}, {"id": "spesar", "title": "Spesarþáttur", "range": "87–93", "file": "videos/87-93-spesar.mp4", "available": true}]</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script id="videoData" type="application/json">[{"id": "onundar", "title": "Önundar þáttur tréfóts", "range": "1–12", "yt": "oKMPvM8msUE", "available": true}, {"id": "bernska", "title": "Bernskubrek Grettis og Noregur", "range": "13–24", "yt": null, "available": false}, {"id": "heimkoma", "title": "Heimkoma Grettis frá Noregi", "range": "25–31", "yt": "CLEKwWcKlII", "available": true}, {"id": "glamur", "title": "Glámur, Noregur og dæmdur skógarmaður", "range": "32–48", "yt": "navyBHex3EM", "available": true}, {"id": "utlegd", "title": "Tíu ár í útlegð", "range": "49–63", "yt": "DF99xCzvkCQ", "available": true}, {"id": "drangey1", "title": "Drangey og lífslok Grettis (I)", "range": "64–86", "yt": null, "available": false}, {"id": "drangey2", "title": "Drangey og lífslok Grettis (II)", "range": "64–86", "yt": null, "available": false}, {"id": "spesar", "title": "Spesarþáttur", "range": "87–93", "yt": "GiW4oYFio1c", "available": true}]</script>
 <script>
 const videos = JSON.parse(document.getElementById('videoData').textContent);
 const listEl = document.getElementById('vidList');
 const panelEl = document.getElementById('playerPanel');
 const SPEED_KEY = 'grettis-video-speed';
+let ytPlayer = null;
+let ytReady = false;
+let pendingVideoId = null;
 
 function getSavedSpeed(){
   const v = parseFloat(localStorage.getItem(SPEED_KEY));
@@ -281,6 +389,11 @@ function getSavedSpeed(){
 function saveSpeed(v){
   try { localStorage.setItem(SPEED_KEY, v); } catch(e){}
 }
+
+window.onYouTubeIframeAPIReady = function(){
+  ytReady = true;
+  if (pendingVideoId) createPlayer(pendingVideoId);
+};
 
 videos.forEach(v => {
   const btn = document.createElement('button');
@@ -297,13 +410,24 @@ videos.forEach(v => {
   listEl.appendChild(btn);
 });
 
+function createPlayer(videoId){
+  panelEl.querySelector('.player-frame-wrap').innerHTML = '<div id="ytPlayerEl"></div>';
+  ytPlayer = new YT.Player('ytPlayerEl', {
+    videoId: videoId,
+    playerVars: { rel: 0, modestbranding: 1, iv_load_policy: 3, fs: 1, cc_load_policy: 0 },
+    events: {
+      onReady: (e) => { e.target.setPlaybackRate(getSavedSpeed()); }
+    }
+  });
+}
+
 function selectVideo(v){
   document.querySelectorAll('.vid-item').forEach(el => el.classList.toggle('active', el.dataset.id === v.id));
   const speed = getSavedSpeed();
   const presets = [1, 1.25, 1.5, 1.75, 2];
   const isPreset = presets.includes(speed);
   panelEl.innerHTML = `
-    <video id="mainVideo" controls src="${v.file}"></video>
+    <div class="player-frame-wrap"><div id="ytPlayerEl"></div></div>
     <p class="player-title">${v.title}</p>
     <p class="player-range">Kaflar ${v.range}</p>
     <div class="speed-row">
@@ -315,13 +439,17 @@ function selectVideo(v){
       </div>
     </div>
   `;
-  const videoEl = document.getElementById('mainVideo');
-  videoEl.playbackRate = speed;
+
+  if (ytReady){
+    createPlayer(v.yt);
+  } else {
+    pendingVideoId = v.yt;
+  }
 
   panelEl.querySelectorAll('.speed-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const s = parseFloat(btn.dataset.speed);
-      videoEl.playbackRate = s;
+      if (ytPlayer && ytPlayer.setPlaybackRate) ytPlayer.setPlaybackRate(s);
       saveSpeed(s);
       panelEl.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -331,14 +459,13 @@ function selectVideo(v){
   document.getElementById('customSpeed').addEventListener('input', (e) => {
     const s = parseFloat(e.target.value);
     if (!isNaN(s) && s > 0){
-      videoEl.playbackRate = s;
+      if (ytPlayer && ytPlayer.setPlaybackRate) ytPlayer.setPlaybackRate(s);
       saveSpeed(s);
       panelEl.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
     }
   });
 }
 
-// auto-select first available video
 const firstAvailable = videos.find(v => v.available);
 if (firstAvailable) selectVideo(firstAvailable);
 </script>
