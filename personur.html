@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persónur — Grettis saga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14171a;
+  --panel:#1b1f22;
+  --panel-2:#20252a;
+  --hairline:#2c3236;
+  --bone:#e9e4d8;
+  --bone-dim:#c8c2b4;
+  --mist:#93a099;
+  --moss:#8ba07c;
+  --moss-dim:#5f7256;
+  --ember:#c1622d;
+  --ember-bright:#e0824c;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--bone);
+  font-family:'Lora', serif;
+  line-height:1.7;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  padding:16px 32px;
+  background:rgba(20,23,26,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+}
+.topbar .brand{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:17px;
+  text-decoration:none;
+  color:var(--bone);
+  white-space:nowrap;
+}
+.topbar nav{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.topbar nav a{
+  text-decoration:none;
+  color:var(--mist);
+  font-size:14px;
+  font-family:'Fraunces', serif;
+  letter-spacing:.01em;
+  padding:4px 2px;
+  border-bottom:1px solid transparent;
+}
+.topbar nav a:hover, .topbar nav a.current{
+  color:var(--ember-bright);
+  border-bottom-color:var(--ember-bright);
+}
+@media (max-width:700px){
+  .topbar{padding:14px 18px;}
+  .topbar nav{gap:14px;}
+  .topbar nav a{font-size:13px;}
+}
+
+
+.page-head{
+  max-width:900px;
+  margin:0 auto;
+  padding:56px 24px 0;
+}
+.page-head .eftirn{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  color:var(--moss);
+  font-size:13px;
+  margin:0 0 8px;
+}
+.page-head h1{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:38px;
+  margin:0 0 12px;
+}
+.page-head p{
+  color:var(--mist);
+  font-size:15px;
+  max-width:640px;
+}
+.section-tabs{
+  max-width:900px;
+  margin:24px auto 0;
+  padding:0 24px;
+  display:flex;
+  gap:8px;
+  border-bottom:1px solid var(--hairline);
+}
+.section-tab{
+  background:transparent;
+  border:none;
+  color:var(--mist);
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:15px;
+  padding:12px 6px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-right:20px;
+}
+.section-tab:hover{ color:var(--bone); }
+.section-tab.active{ color:var(--ember-bright); border-bottom-color:var(--ember-bright); }
+.view-panel{ display:none; }
+.view-panel.active{ display:block; }
+.content{
+  max-width:900px;
+  margin:0 auto;
+  padding:28px 24px 100px;
+}
+.p-group{margin-top:44px;}
+.p-group:first-child{margin-top:0;}
+.p-group h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:15px;
+  color:var(--moss);
+  border-bottom:1px solid var(--hairline);
+  padding-bottom:10px;
+  margin:0 0 20px;
+}
+.p-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+  gap:16px;
+}
+.p-card{
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  border-radius:6px;
+  padding:16px 18px;
+}
+.p-card h3{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:16px;
+  margin:0 0 8px;
+  color:var(--bone);
+}
+.p-card p{
+  font-size:14px;
+  color:var(--bone-dim);
+  margin:0;
+  line-height:1.6;
+}
+.p-more-btn{
+  display:inline-block;
+  margin-top:10px;
+  background:transparent;
+  border:none;
+  color:var(--moss);
+  font-family:'Lora', serif;
+  font-style:italic;
+  font-size:12.5px;
+  cursor:pointer;
+  padding:0;
+}
+.p-more-btn:hover{ color:var(--ember-bright); }
+.p-more-body{
+  display:none;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid var(--hairline);
+  font-size:13.5px;
+  color:var(--bone-dim);
+  line-height:1.6;
+}
+.p-more-body.open{ display:block; }
+
+/* nafnaskrá */
+.idx-search{
+  width:100%;
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  color:var(--bone);
+  border-radius:8px;
+  padding:11px 14px;
+  font-family:'Lora', serif;
+  font-size:14px;
+  margin-bottom:18px;
+  box-sizing:border-box;
+}
+.idx-table{
+  width:100%;
+  border-collapse:collapse;
+}
+.idx-table td{
+  padding:10px 8px;
+  border-bottom:1px solid var(--hairline);
+  font-size:13.5px;
+  vertical-align:top;
+}
+.idx-name{
+  color:var(--bone);
+  font-family:'Fraunces', serif;
+  font-weight:500;
+  width:45%;
+}
+.idx-chapters{ color:var(--mist); }
+.idx-chapters a{
+  color:var(--ember-bright);
+  text-decoration:none;
+}
+.idx-chapters a:hover{ text-decoration:underline; }
+.idx-row.hidden{ display:none; }
+
+/* tengsl */
+.legend{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+  margin:0 0 18px;
+  font-size:12.5px;
+  color:var(--bone-dim);
+  align-items:center;
+}
+.legend span.item{ display:flex; align-items:center; gap:7px; }
+.legend .line{
+  width:28px; height:0; border-top-width:2.5px; border-top-style:solid; display:inline-block;
+}
+.legend .l-fjolskylda{ border-color:#8ba07c; border-top-style:solid; }
+.legend .l-vinir{ border-color:#7ea9c9; border-top-style:dashed; }
+.legend .l-ovinir{ border-color:#c1622d; border-top-style:solid; border-top-width:3.5px; }
+.legend .l-ast{ border-color:#c97fa0; border-top-style:dotted; border-top-width:3px; }
+.rel-wrap{
+  overflow-x:auto;
+}
+.rel-svg{
+  min-width:760px;
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+
+.pin-gate{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.pin-box{
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  border-radius:12px;
+  padding:36px 32px;
+  max-width:320px;
+  width:100%;
+  text-align:center;
+}
+.pin-box h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:22px;
+  color:var(--bone);
+  margin:0 0 8px;
+}
+.pin-box p{
+  font-size:13.5px;
+  color:var(--mist);
+  margin:0 0 20px;
+}
+.pin-box input{
+  width:100%;
+  background:var(--ink);
+  border:1px solid var(--hairline);
+  color:var(--bone);
+  border-radius:8px;
+  padding:12px;
+  font-family:'Fraunces', serif;
+  font-size:24px;
+  letter-spacing:0.5em;
+  text-align:center;
+  margin-bottom:14px;
+  box-sizing:border-box;
+}
+.pin-box input:focus{ outline:none; border-color:var(--moss); }
+.pin-box button{
+  width:100%;
+  background:var(--moss-dim);
+  border:none;
+  color:var(--bone);
+  font-family:'Fraunces', serif;
+  font-size:15px;
+  padding:11px;
+  border-radius:24px;
+  cursor:pointer;
+}
+.pin-box button:hover{ background:var(--moss); }
+.pin-error{
+  color:var(--ember-bright);
+  font-size:12.5px;
+  margin-top:12px;
+  display:none;
+}
+
+</style>
+</head>
+<body>
+<div class="pin-gate" id="pinGate">
+  <div class="pin-box">
+    <h2>Grettis saga</h2>
+    <p>Sláðu inn PIN-ið til að halda áfram</p>
+    <input type="password" id="pinInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+    <button id="pinSubmit">Áfram</button>
+    <p class="pin-error" id="pinError">Rangt PIN, reyndu aftur.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'grettis-pin-ok';
+  var CODE = '1234';
+  var gate = document.getElementById('pinGate');
+  if (localStorage.getItem(KEY) === 'yes') {
+    gate.style.display = 'none';
+  } else {
+    var input = document.getElementById('pinInput');
+    function tryUnlock(){
+      if (input.value === CODE) {
+        localStorage.setItem(KEY, 'yes');
+        gate.style.display = 'none';
+      } else {
+        document.getElementById('pinError').style.display = 'block';
+        input.value = '';
+      }
+    }
+    document.getElementById('pinSubmit').addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') tryUnlock(); });
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+})();
+</script>
+
+<header class="topbar">
+  <a class="brand" href="index.html">Grettis saga</a>
+  <nav>
+    <a href="index.html">Forsíða</a>
+    <a href="grettis-saga.html">Lesa söguna</a>
+    <a href="personur.html" class="current">Persónur</a>
+    <a href="timalina.html">Tímalína</a>
+    <a href="laera.html">Læra</a>
+    <a href="myndbond.html">Myndbönd</a>
+  </nav>
+</header>
+<div class="page-head">
+  <p class="eftirn">Hverjir eru hverjir</p>
+  <h1>Persónur sögunnar</h1>
+  <p>Lýsingar, full nafnaskrá og tengslanet — allt um fólkið í Grettis sögu á einum stað.</p>
+</div>
+<div class="section-tabs">
+  <button class="section-tab active" data-view="cards">Lýsingar</button>
+  <button class="section-tab" data-view="index">Nafnaskrá</button>
+  <button class="section-tab" data-view="tengsl">Tengsl</button>
+</div>
+<div class="content">
+
+  <div class="view-panel active" id="view-cards">
+
+      <section class="p-group">
+        <h2>Forfeður og ætt</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Önundur tréfótur</h3>
+          <p>Langafi Grettis; víkingur sem missti fótinn fyrir neðan hné í orrustunni í Hafursfirði og bjó síðan á Ströndum.</p>
+          <button class="p-more-btn" data-target="p1">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p1">Auk þess að vera langafi Grettis er Önundur sjálfur mikill kappi: hann heldur áfram að berjast, ferðast og stjórna eigin lífi þrátt fyrir fötlun sína. Hann verður fyrirmynd að seiglu og sjálfstæði í ættinni — en ólíkt Gretti tekst honum að byggja upp stöðuga stöðu innan samfélagsins fremur en að einangrast frá því.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorgrímur hærukollur</h3>
+          <p>Afi Grettis, sonur Önundar; varð grár í hári ungur að aldri en var þó sterkur og réð fyrir bræðrum sínum.</p>
+          <button class="p-more-btn" data-target="p2">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p2">Þorgrímur er sonur Önundar og afi Grettis. Hann tengir ættina áfram við Bjarg og verður snemma grár í hári þrátt fyrir ungan aldur, en er þó sterkur og virtur meðal frænda sinna.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þórdís (móðir Þorgríms)</h3>
+          <p>Önnur kona Önundar tréfóts, dóttir Þorgríms úr Gnúpi; móðir Þorgríms hærukolls, afa Grettis.</p>
+        </div>
+        <div class="p-card">
+          <h3>Ásmundur hærulangur</h3>
+          <p>Faðir Grettis; kaupmaður sem gerði víðreist og gráhærðist ungur, tók við búi að Bjargi eftir föður sinn.</p>
+          <button class="p-more-btn" data-target="p4">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p4">Ásmundur er faðir Grettis, kaupmaður sem gráhærðist óvenju ungur á siglingum erlendis. Hann sér snemma að sonur hans verður sterkur en jafnframt erfiður í stjórn, og verkefnin þrjú sem hann felur Gretti (gæsagæsla, bakstrokur, hrossagæsla) verða fyrstu dæmin um hvernig Grettir snýr skyldum upp í hrekki. Ásmundur deyr áður en Grettir er gerður sekur skógarmaður, og Atli tekur við búinu á Bjargi í hans stað.</div>
+        </div>
+        <div class="p-card">
+          <h3>Rannveig (kona Ásmundar í Noregi)</h3>
+          <p>Fyrri kona Ásmundar hærulangs í Noregi; lést snemma frá ungum syni þeirra, Þorsteini drómundi.</p>
+        </div>
+        <div class="p-card">
+          <h3>Ásdís á Bjargi</h3>
+          <p>Móðir Grettis; síðari kona Ásmundar, taldi mikinn kvenkost og unni Gretti mjög þrátt fyrir hrekki hans.</p>
+          <button class="p-more-btn" data-target="p6">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p6">Ásdís er sterk, framsýn og trygg móðir sem heldur alltaf tryggð við Gretti, jafnvel þegar samfélagið hafnar honum. Hún gefur honum sverðið sem hét eftir Jökli, forföður hennar úr Vatnsdælu-ætt, áður en hann siglir fyrst til Noregs, og kveðja hennar þegar Illugi fylgir Gretti til Drangeyjar — þar sem hún varar þá sérstaklega við göldrum — er einn sterkasti fyrirboði sögunnar. Hún er sú sem heldur fjölskylduböndunum saman þegar allt annað í lífi Grettis brotnar niður.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorsteinn drómundur</h3>
+          <p>Hálfbróðir Grettis, ólst upp í Noregi; hefnir Grettis mörgum árum síðar með því að vega Þorbjörn öngul í Miklagarði.</p>
+          <button class="p-more-btn" data-target="p7">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p7">Þorsteinn er hálfbróðir Grettis, alinn upp í Noregi hjá móður sinni Rannveigu. Frægt er samtal þeirra bræðra þar sem Grettir gerir grín að mjóum handleggjum Þorsteins — sem svarar að þessir handleggir kunni síðar að hefna hans. Það gengur eftir: Þorsteinn eltir Þorbjörn öngul alla leið til Miklagarðs, þekkir hann á sverðinu Kársnaut og vegur hann. Í kjölfarið kynnist hann Spes, og saga þeirra tveggja myndar sjálfstæðan lokahluta sögunnar, Spesarþátt.</div>
+        </div>
+        <div class="p-card">
+          <h3>Atli Ásmundarson</h3>
+          <p>Elsti bróðir Grettis; góður og vinsæll bóndi að Bjargi, veginn af Þorbirni öxnamegin í hefndum deilum.</p>
+          <button class="p-more-btn" data-target="p8">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p8">Atli er elstur systkinanna og bein andstæða Grettis í skapgerð: hógvær, farsæll og vinsæll hjá öllum sem kynnast honum. Hann tekur við búinu á Bjargi eftir föður sinn og reynist farsæll bóndi. Þegar Þorbjörn öxnamegin vegur hann óvænt verður það kveikjan að því að Grettir hefnir hans — og um leið einn þungamiðjupunktur í falli Grettis sjálfs, því hefndin eykur enn frekar á óvild í hans garð.</div>
+        </div>
+        <div class="p-card">
+          <h3>Grettir Ásmundarson</h3>
+          <p>Söguhetjan sjálf; sterkasti maður Íslands, dæmdur sekur skógarmaður, fellur að lokum í Drangey eftir langa útlegð.</p>
+          <button class="p-more-btn" data-target="p9">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p9">Grettir er í senn hetja og vandræðamaður. Hann er sterkastur allra manna á Íslandi, hugrakkur og orðheppinn, en fátalaður, þrjóskur og stoltur — og þolir illa að vera stjórnað eða ögrað. Þessi blanda af hæfileikum og skapgerð fylgir honum alla ævi: hann leysir hvern vanda sem krefst styrks eða hugrekkis (berserki, drauga, tröll) en getur ekki leyst samfélagslegan vanda sinn, því skap hans stigmagnar sífellt nýjar deilur. Eftir viðureignina við Glám verður hann auk þess myrkfælinn og einmana. Sagan lætur lesandann ekki dæma hann einhliða — hann er bæði bjargvættur samfélagsins og ógn við það, og kjarnasetningin „Sitt er hvað, gæfa eða gjörvuleikur“ lýsir örlögum hans best: hann hefur allt nema gæfuna.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þórdís Ásmundardóttir</h3>
+          <p>Systir Grettis; giftist Glúmi Óspakssyni og átti með honum soninn Óspak.</p>
+        </div>
+        <div class="p-card">
+          <h3>Rannveig Ásmundardóttir</h3>
+          <p>Systir Grettis; giftist Gamla Þórhallssyni Vínlending.</p>
+        </div>
+        <div class="p-card">
+          <h3>Illugi Ásmundarson</h3>
+          <p>Yngsti bróðir Grettis; fylgir honum trúfastur í útlegðinni til Drangeyjar og fellur með honum þar.</p>
+          <button class="p-more-btn" data-target="p12">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p12">Illugi er yngstur systkinanna og verður táknmynd fullkominnar fjölskyldutryggðar í sögunni. Þótt hann sé aðeins um fimmtán ára þegar hann fylgir Gretti til Drangeyjar gerir hann það ekki af frægðarþrá eða gróðavon, heldur af tryggð einni saman. Í lokaátökunum ver hann Gretti af hugrekki og fær tækifæri til að bjarga eigin lífi með því að lúta Þorbirni öngli — en neitar og deyr með bróður sínum. Orðin „Ber er hver að baki nema sér bróður eigi“ eiga sérstaklega við um hann.</div>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Æskuár og fyrsta útlegð</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Kormákur, Þorgils og Oddur ómagaskáld</h3>
+          <p>Ungir menn í Miðfirði sem kepptu við Gretti og Atla á knattleikjum á Miðfjarðarvatni.</p>
+        </div>
+        <div class="p-card">
+          <h3>Auðun (á Auðunarstöðum)</h3>
+          <p>Sterkasti jafnaldri Grettis í nærsveitum; þeir takast á í frægum leik og sættast síðar.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þorkell krafla</h3>
+          <p>Höfðingi og vinur Ásmundar sem spáir fyrir framtíð sona hans og tekur Gretti með sér til alþingis.</p>
+        </div>
+        <div class="p-card">
+          <h3>Skeggi húskarl</h3>
+          <p>Húskarl sem Grettir vegur í deilu um týnt nesti á leið til þings — fyrsta víg Grettis, 15 ára.</p>
+        </div>
+        <div class="p-card">
+          <h3>Hafliði siglingamaður</h3>
+          <p>Skipstjóri sem tekur Gretti með utan til Noregs eftir fyrri útlegðardóminn.</p>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Noregsdvöl Grettis</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Þorfinnur í Háramarsey</h3>
+          <p>Norskur höfðingi sem Grettir bjargar frá berserkjum um jól; verður hans traustasti vinur í Noregi.</p>
+        </div>
+        <div class="p-card">
+          <h3>Auðun á Vindheimi</h3>
+          <p>Vinur Grettis í Háramarsey sem segir honum frá draugagangi Kárs, föður Þorfinns.</p>
+        </div>
+        <div class="p-card">
+          <h3>Kár draugur</h3>
+          <p>Framliðinn faðir Þorfinns sem gengur aftur úr haugi sínum; Grettir vinnur hann og sækir fé og vopn úr hauginum.</p>
+          <button class="p-more-btn" data-target="p20">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p20">Kár er framliðinn faðir Þorfinns í Háramarsey sem gengur aftur úr haugi sínum. Grettir vinnur hann í einum af fyrstu stórvirkjum sínum og sækir bæði fjársjóð og saxið Kársnaut — vopn sem kemur við sögu aftur mun síðar, þegar Þorsteinn drómundur þekkir Þorbjörn öngul á því í Miklagarði.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þórir þömb og Ögmundur illi</h3>
+          <p>Tveir útlægir berserkir sem ráðast á bæ Þorfinns um jól — Grettir vegur báða og átta menn þeirra.</p>
+        </div>
+        <div class="p-card">
+          <h3>Björn, Hjarrandi og Gunnar</h3>
+          <p>Frændur Þorkels krafla; Grettir vegur þá hvern af öðrum í röð deilna um heiður eftir björnsdráp og hefndir.</p>
+        </div>
+        <div class="p-card">
+          <h3>Bersi Skáld-Torfuson</h3>
+          <p>Vinur Grettis frá Íslandi, staddur í Noregi; talar máli hans fyrir jarli þegar leitað er sátta.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þorgeir Hávarsson og Þormóður Kolbrúnarskáld</h3>
+          <p>Fræg fóstbræðrapör nefnd til samanburðar við umsvif Grettis og annarra ójafnaðarmanna.</p>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Heimkoman og deilur á Norðurlandi</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Þorsteinn Kuggason</h3>
+          <p>Frændi og málsvari Ásmundar hærulangs; sækir eftirmál vegna vígs Þorgils Mákssonar.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þorgils Arason</h3>
+          <p>Höfðingi á Reykhólum sem Grettir leitar liðsinnis hjá á erfiðum tímum.</p>
+        </div>
+        <div class="p-card">
+          <h3>Barði Guðmundsson og Þórarinn fóstri hans</h3>
+          <p>Ungur höfðingi úr Ásbjarnarnesi; Grettir hjálpar Barða og félögum hans í átökum við Heiðarvíg.</p>
+          <button class="p-more-btn" data-target="p27">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p27">Barði er ungur höfðingi sem undirbýr Heiðarvígin. Grettir vill fylgja honum til bardaga, en fóstri hans Þórarinn ráðleggur gegn því — hann telur Gretti vissulega sterkan en ekki gæfusaman, og óttast að skap hans skapi hættu fyrir félagana.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorbjörn öxnamegin og Arnór sonur hans</h3>
+          <p>Sterkasti maður í Hrútafirði og son hans; deila hatrammlega við Bjargsmenn og vega Atla, bróður Grettis.</p>
+          <button class="p-more-btn" data-target="p28">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p28">Þorbjörn öxnamegin er sterkasti maður í Hrútafirði og verður erkióvinur Bjargsmanna. Hann vegur Atla, bróður Grettis, að ástæðulausu — og Grettir hefnir hans síðar með því að vega bæði Þorbjörn og son hans.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorbjörn ferðalangur</h3>
+          <p>Frændi Þorbjörns öxnamegin, siglingamaður og orðhákur sem eggjar til illinda milli granna.</p>
+        </div>
+        <div class="p-card">
+          <h3>Gunnar og Þorgeir Þórissynir</h3>
+          <p>Bræður frá Skarði, fylgismenn Þorbjörns öxnamegin sem sitja fyrir Atla og verða valdir að falli hans.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þóroddur drápustúfur</h3>
+          <p>Einn fylgdarmanna Þorbjörns öxnamegin sem fellur ásamt honum þegar Grettir hefnir Atla.</p>
+        </div>
+        <div class="p-card">
+          <h3>Áli húskarl</h3>
+          <p>Illa haldinn húskarl Þorbjörns öxnamegin sem flýr til Bjargs og segir Atla frá grimmd húsbónda síns.</p>
+        </div>
+        <div class="p-card">
+          <h3>Skafti lögmaður</h3>
+          <p>Vitrasti og heilráðasti maður landsins; Þórhallur á Þórhallsstöðum leitar ráða hans vegna Gláms.</p>
+          <button class="p-more-btn" data-target="p33">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p33">Skafti Þóroddsson er vitrasti og heilráðasti maður landsins að sögn — margar persónur leita ráða hjá honum, þar á meðal Grettir sjálfur á flóttaárum sínum.</div>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Útlegðarár Grettis</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Svíinn Glámur</h3>
+          <p>Undarlegur, ógæfusamur sauðamaður sem verður sjálfur að reimleikadraug eftir dularfullan dauða; Grettir sigrast á honum en ber bölvun hans upp frá því.</p>
+          <button class="p-more-btn" data-target="p34">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p34">Glámur er kannski dularfyllsta persóna sögunnar: undarlegur, ógæfusamur sauðamaður sem deyr við óljósar aðstæður og gengur sjálfur aftur sem skelfilegur reimleikadraugur. Viðureign Grettis við hann er sögulegur vendipunktur — Grettir sigrar, en rétt áður en Glámur er felldur leggur hann bölvun á hann: að Grettir verði aldrei sterkari en þá, verði dæmdur til útlegðar, og sjái ávallt augu Gláms fyrir sér í myrkri. Eftir þetta verður Grettir ákaflega myrkfælinn og verk hans byrja að snúast honum til ógæfu.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorgautur</h3>
+          <p>Útlendur sauðamaður á undan Glámi á Þórhallsstöðum; hverfur sjálfur sporlaust í reimleikunum.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þórir Skeggjason í Garði og synir hans Þorgeir og Skeggi</h3>
+          <p>Höfðingi sem fær útlaga til að reyna að drepa Gretti fyrir fé; synir hans halda áfram hefndunum.</p>
+          <button class="p-more-btn" data-target="p36">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p36">Þórir í Garði er höfðingi sem ítrekað reynir að fá útlaga til að drepa Gretti fyrir fé, meðal annars skógarmennina Grím og Þóri rauðskegg. Hann er faðir mannanna sem farast í brunanum í Noregi og því sá sem fær Gretti dæmdan skógarmann.</div>
+        </div>
+        <div class="p-card">
+          <h3>Einar bóndi og Snækollur berserkur</h3>
+          <p>Einar verður fyrir ágangi berserksins Snækolls á jólum; Grettir kemur bóndanum til bjargar og vegur berserkinn.</p>
+        </div>
+        <div class="p-card">
+          <h3>Grímur bróðir Gamla</h3>
+          <p>Bróðir Gamla Þórhallssonar, mágs Grettis; stendur með Atla í deilunum við Þorbjörn öxnamegin.</p>
+        </div>
+        <div class="p-card">
+          <h3>Snorri goði</h3>
+          <p>Valdamesti höfðingi Dala; Grettir leitar ásjár hans en fær hófstillt en gagnlegt svar um hvert hann skuli leita.</p>
+          <button class="p-more-btn" data-target="p39">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p39">Snorri goði er einn valdamesti höfðingi landsins og kemur víða við sögu Íslendingasagna. Þegar Grettir leitar ásjár hans fær hann hófstillt en gagnlegt svar fremur en beina hjálp — dæmigert fyrir það hvernig æðstu höfðingjar halda sig í hæfilegri fjarlægð frá útlaganum.</div>
+        </div>
+        <div class="p-card">
+          <h3>Vermundur og Þorbjörg (hin digra)</h3>
+          <p>Höfðingjahjón í Vatnsfirði; Þorbjörg bjargar lífi Grettis með því að grípa fram fyrir hendur á mönnum sem vilja hengja hann.</p>
+          <button class="p-more-btn" data-target="p40">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p40">Þorbjörg digra er sú sem bjargar lífi Grettis þegar bændur í Vatnsfirði hyggjast hengja hann fyrir smávægileg afbrot. Hún telur það ósæmilegt að fara þannig með frægan og stórættaðan mann og grípur fram fyrir hendur þeirra — ein af fáum sterkum kvenpersónum sem hafa raunveruleg áhrif á rás sögunnar.</div>
+        </div>
+        <div class="p-card">
+          <h3>Loftur / Hallmundur</h3>
+          <p>Dularfullur maður sem Grettir hittir fyrst sem &amp;#x27;Loft&amp;#x27; á Kili; reynist síðar vera útlaginn Hallmundur sem hýsir hann í helli sínum.</p>
+          <button class="p-more-btn" data-target="p41">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p41">Hallmundur er einn dularfyllsti bandamaður Grettis: útlagi (og að sumra mati hálftröll) sem Grettir hittir fyrst undir nafninu Loftur á Kili. Hann hýsir Grettir síðar í helli sínum og kemur honum til bjargar í Hamraskarði þegar Þórir Skeggjason sækir að honum með fjölmenni.</div>
+        </div>
+        <div class="p-card">
+          <h3>Grímur fugumaður og Þórir rauðskeggur</h3>
+          <p>Tveir útlagar sendir gegn Gretti á Arnarvatnsheiði; Grettir sér við báðum og vegur þá.</p>
+        </div>
+        <div class="p-card">
+          <h3>Björn Hítdælakappi</h3>
+          <p>Þekktur kappi og skáld, erkifjandi Þórðar Kolbeinssonar; nefndur til hliðsjónar við deilur á Mýrum.</p>
+          <button class="p-more-btn" data-target="p43">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p43">Björn er þekktur kappi og skáld úr eigin sögu (Bjarnar sögu Hítdælakappa). Hann skýtur skjólshúsi yfir Gretti um tíma á Mýrum — eitt fárra dæma um að viðurkenndur höfðingi taki áhættu til að hjálpa útlaganum.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þórður (Kolbeinsson) og Gísli á Mýrunum</h3>
+          <p>Þórður er skáld og bóndi á Hítarnesi; Gísli er sonur manns sem Snorri goði lét drepa og etur kappi við Grettir.</p>
+          <button class="p-more-btn" data-target="p44">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p44">Gísli er sonur manns sem Snorri goði lét drepa, og hann monta sig af að geta unnið Gretti í viðureign. Grettir sýnir yfirburði sína, niðurlægir hann — en lætur hann lifa, eitt dæma um hófsemi Grettis gagnvart þeim sem ögra honum að óþörfu.</div>
+        </div>
+        <div class="p-card">
+          <h3>Steinn prestur á Eyjardalsá og Steinvör á Sandhaugum</h3>
+          <p>Húsfreyjan Steinvör verður fyrir reimleikum um jól; presturinn Steinn hjálpar til við að leiða í ljós hver felur sig sem &amp;#x27;Gestur&amp;#x27;.</p>
+          <button class="p-more-btn" data-target="p45">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p45">Steinvör er húsfreyja sem verður fyrir óvættaárásum um jól á Sandhaugum. Grettir rannsakar málið og vinnur bæði tröllkonu og jötun sem þar herja — atburðarás sem er talin endurspegla Glámssöguna, nema hér bætir afrekið ekki stöðu Grettis sjálfs þótt það bjargi öðrum.</div>
+        </div>
+        <div class="p-card">
+          <h3>Guðmundur ríki á Möðruvöllum</h3>
+          <p>Voldugur höfðingi á Norðurlandi sem ráðleggur Gretti að leita hælis í Drangey, óvinnandi vígi.</p>
+          <button class="p-more-btn" data-target="p46">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p46">Guðmundur er valdamikill höfðingi á Norðurlandi sem Grettir leitar til þegar hann er orðinn úrræðalaus. Það er hann sem bendir Gretti á Drangey — náttúrulegt virki með aðeins einni uppgönguleið — sem hinn endanlega felustað.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þóroddur Snorrason</h3>
+          <p>Sonur Snorra goða; á í útistöðum við Gretti (dulnefndan Gest) vegna ungs sakamanns sem hann vildi taka af lífi.</p>
+        </div>
+        <div class="p-card">
+          <h3>Þorbjörn glaumur</h3>
+          <p>Skrafhreifinn þræll í fylgd Grettis og Illuga í Drangey; ber óafvitandi heim bölvað rekaviðartré sem veldur Gretti banvænu sári.</p>
+          <button class="p-more-btn" data-target="p48">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p48">Glaumur er skrafhreifinn þræll í fylgd Grettis og Illuga í Drangey. Vanræksla hans reynist afdrifarík í tvennum skilningi: hann ber óafvitandi bölvaða rekaviðartréð heim eftir að Grettir hefur tvisvar látið kasta því aftur í sjó, og sofnar síðar á verði við stigann — sem opnar Þorbirni öngli leið upp í eyjuna.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorvaldur bóndi að Reykjum</h3>
+          <p>Góður bóndi sem tekur á móti Gretti eftir hið fræga sund hans til Reykjaness.</p>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Lokakaflarnir í Drangey</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Hjalti Þórðarson</h3>
+          <p>Höfðingi að Hofi í Hjaltadal, bróðir Þorbjörns öngla; vill fremur halda grið en ganga á eftirmál Grettis.</p>
+          <button class="p-more-btn" data-target="p50">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p50">Hjalti er höfðingi að Hofi í Hjaltadal og bróðir Þorbjörns öngla. Ólíkt bróður sínum vill hann fremur halda grið en elta eftirmál Grettis af hörku — sem sýnir að ekki allir í fjölskyldu Þorbjörns styðja aðferðir hans.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þorbjörn öngull Þórðarson</h3>
+          <p>Aðalóvinur Grettis í sögulok; safnar liði og fær Gretti að lokum veginn með aðstoð fóstru sinnar Þuríðar og fjölkynngi.</p>
+          <button class="p-more-btn" data-target="p51">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p51">Þorbjörn öngull er síðasti og hættulegasti óvinur Grettis. Hann kaupir hlut í Drangey gagngert til að losna við Grettir og reynir árangurslaust í mörg ár að ná honum. Þegar hefðbundnar leiðir duga ekki leitar hann til fóstru sinnar Þuríðar, sem beitir göldrum til að veikja Gretti. Þorbjörn nær að lokum að fella Gretti og Illuga — en sigurinn kostar hann virðingu samfélagsins, því aðferðirnar (galdur, liðsmunur, að ráðast á veikan mann) þykja lítilmannlegar. Hann fær ekki þau laun sem hann vænti og er sjálfur fordæmdur á Alþingi.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þórður og Þórður</h3>
+          <p>Forfeður Hjalta og Þorbjörns öngla, ættfeður mikilsháttar Skagfirðinga sem koma við sögu Drangeyjar.</p>
+        </div>
+        <div class="p-card">
+          <h3>Vinnukonan að Reykjum</h3>
+          <p>Ónefnd vinnukona sem kemur við sögu á bænum að Reykjum í tengslum við för Grettis um héraðið.</p>
+        </div>
+        <div class="p-card">
+          <h3>Hæringur Austmaður</h3>
+          <p>Ungur, fimur norskur maður sem reynir að flýja á sundi undan Illuga í Drangey og hrapar til bana.</p>
+          <button class="p-more-btn" data-target="p54">Lesa meira &darr;</button>
+          <div class="p-more-body" id="p54">Hæringur er ungur, fimur norskur maður sem reynir að klífa björg Drangeyjar til að ná Gretti en mistekst — og hrapar til bana. Staðurinn þar sem hann fellur er kenndur við hann sem Hæringshlaup.</div>
+        </div>
+        <div class="p-card">
+          <h3>Þuríður fóstra Þorbjörns öngla</h3>
+          <p>Öldruð fjölkunnug fóstra; magnar rekaviðartréð sem verður Gretti að fjörtjóni með göldrum sínum.</p>
+          <button class="p-more-btn" data-target="p55">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p55">Þuríður er öldruð fóstra Þorbjörns öngla, sögð fjölkunnug og margkunnandi frá þeim tíma þegar flestir voru enn heiðnir. Þegar Þorbjörn getur ekki náð Gretti á venjulegan hátt leitar hann til hennar. Hún leggur ill ummæli á Gretti og fremur síðan galdur á rekaviðartré sem hún sendir til Drangeyjar — tréð sem að lokum veldur banvænu sári á fæti Grettis. Hún er sá eini sem raunverulega sigrar Grettir: ekki með afli, heldur með fjölkynngi.</div>
+        </div></div>
+      </section>
+      <section class="p-group">
+        <h2>Lokaþátturinn: Spes og Þorsteinn</h2>
+        <div class="p-grid">
+        <div class="p-card">
+          <h3>Spes húsfreyja</h3>
+          <p>Göfug og stórættuð kona í Miklagarði; giftist auðugum en ástlausum manni og verður síðar ástkona og eiginkona Þorsteins drómundar.</p>
+          <button class="p-more-btn" data-target="p56">Lesa ítarlega &darr;</button>
+          <div class="p-more-body" id="p56">Spes er rík og göfug húsfreyja í Miklagarði sem heyrir Þorstein drómund kveða í dýflissu og leysir hann úr haldi. Þau verða ástfangin þótt hún sé gift Sigurði, og hún sýnir einstaka klókindi við að fela Þorstein og síðar við að sverja formlegan eið sem er tæknilega sannur en gjörsamlega blekkjandi — með því tryggir hún sér skilnað frá Sigurði. Hún og Þorsteinn giftast, eignast börn, og fara loks saman í pílagrímsferð til Rómar til að bæta fyrir syndir sínar. Hún er fyrsta fullgilda kvenhetja sögunnar.</div>
+        </div></div>
+      </section>
+  </div>
+
+  <div class="view-panel" id="view-index">
+    <input type="text" class="idx-search" id="idxSearch" placeholder="Leita að nafni...">
+    <table class="idx-table">
+      <tbody id="idxBody">
+      
+      <tr class="idx-row">
+        <td class="idx-name">Aldís Ófeigsdóttir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-3">3</a>, <a href="grettis-saga.html#kafli-13">13</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Arnór Þorbjarnarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-48">48</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Atli Ásmundarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>–<a href="grettis-saga.html#kafli-16">16</a>, <a href="grettis-saga.html#kafli-28">28</a>–<a href="grettis-saga.html#kafli-29">29</a>, <a href="grettis-saga.html#kafli-37">37</a>, <a href="grettis-saga.html#kafli-42">42</a>–<a href="grettis-saga.html#kafli-45">45</a>, <a href="grettis-saga.html#kafli-47">47</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-54">54</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Auðun Ásgeirsson á Auðunarstöðum</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-15">15</a>, <a href="grettis-saga.html#kafli-28">28</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Auðun á Vindheimi</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-18">18</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Barði Guðmundarson / Víga-Barði</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-31">31</a>–<a href="grettis-saga.html#kafli-33">33</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Bersi Skáld-Torfuson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-15">15</a>, <a href="grettis-saga.html#kafli-23">23</a>–<a href="grettis-saga.html#kafli-24">24</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Björn Hítdælakappi Arngeirsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-58">58</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Bálki Blængsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-1">1</a>–<a href="grettis-saga.html#kafli-2">2</a>, <a href="grettis-saga.html#kafli-5">5</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Eiríkur jarl Hákonarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-19">19</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Eyvindur austmaður Bjarnarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-3">3</a>–<a href="grettis-saga.html#kafli-6">6</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Gamli Þórhallsson Vínlendings</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-30">30</a>, <a href="grettis-saga.html#kafli-37">37</a>, <a href="grettis-saga.html#kafli-48">48</a>–<a href="grettis-saga.html#kafli-49">49</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-83">83</a>–<a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Geirmundur heljarskinn</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-2">2</a>–<a href="grettis-saga.html#kafli-3">3</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Glaumur / Þorbjörn glaumur</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-69">69</a>, <a href="grettis-saga.html#kafli-72">72</a>, <a href="grettis-saga.html#kafli-74">74</a>, <a href="grettis-saga.html#kafli-79">79</a>–<a href="grettis-saga.html#kafli-80">80</a>, <a href="grettis-saga.html#kafli-82">82</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Glámur</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-32">32</a>–<a href="grettis-saga.html#kafli-35">35</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Glúmur Óspaksson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-43">43</a>, <a href="grettis-saga.html#kafli-83">83</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Grettir Ásmundarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>–<a href="grettis-saga.html#kafli-86">86</a>, auk þess nefndur fyrr í ættarsögu</td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Grímur hersir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-6">6</a>–<a href="grettis-saga.html#kafli-7">7</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Grímur skógarmaður</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-55">55</a>, <a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Grímur Þórhallsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-42">42</a>, <a href="grettis-saga.html#kafli-44">44</a>, <a href="grettis-saga.html#kafli-47">47</a>, <a href="grettis-saga.html#kafli-54">54</a>, <a href="grettis-saga.html#kafli-57">57</a>, <a href="grettis-saga.html#kafli-61">61</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Guðmundur hinn ríki</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-67">67</a>, <a href="grettis-saga.html#kafli-69">69</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Gísli Þorsteinsson farmaður</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-59">59</a>–<a href="grettis-saga.html#kafli-60">60</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Hafliði á Reyðarfelli</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-17">17</a>–<a href="grettis-saga.html#kafli-18">18</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Halldór Þorgeirsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-70">70</a>, <a href="grettis-saga.html#kafli-72">72</a>, <a href="grettis-saga.html#kafli-81">81</a>, <a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Hallmundur / Loftur</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-54">54</a>, <a href="grettis-saga.html#kafli-57">57</a>, <a href="grettis-saga.html#kafli-61">61</a>–<a href="grettis-saga.html#kafli-62">62</a>, <a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Hallvarður súgandi</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-1">1</a>–<a href="grettis-saga.html#kafli-2">2</a>, <a href="grettis-saga.html#kafli-5">5</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Haraldur Sigurðarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-88">88</a>, <a href="grettis-saga.html#kafli-90">90</a>–<a href="grettis-saga.html#kafli-91">91</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Hjalti Þórðarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-70">70</a>, <a href="grettis-saga.html#kafli-72">72</a>, <a href="grettis-saga.html#kafli-81">81</a>, <a href="grettis-saga.html#kafli-85">85</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Hæringur Austmaður</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-76">76</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Illugi Ásmundarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-37">37</a>, <a href="grettis-saga.html#kafli-47">47</a>, <a href="grettis-saga.html#kafli-67">67</a>, <a href="grettis-saga.html#kafli-69">69</a>, <a href="grettis-saga.html#kafli-72">72</a>, <a href="grettis-saga.html#kafli-74">74</a>, <a href="grettis-saga.html#kafli-76">76</a>, <a href="grettis-saga.html#kafli-78">78</a>–<a href="grettis-saga.html#kafli-82">82</a>, <a href="grettis-saga.html#kafli-83">83</a>–<a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Kjartan Steinsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-64">64</a>, <a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Kormákur á Mel</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-15">15</a>, <a href="grettis-saga.html#kafli-29">29</a>–<a href="grettis-saga.html#kafli-30">30</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Kár hinn gamli</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-18">18</a>–<a href="grettis-saga.html#kafli-20">20</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Rannveig Ásmundardóttir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-30">30</a>, <a href="grettis-saga.html#kafli-37">37</a>, <a href="grettis-saga.html#kafli-48">48</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Skafti Þóroddsson lögsögumaður</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-32">32</a>, <a href="grettis-saga.html#kafli-46">46</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-54">54</a>, <a href="grettis-saga.html#kafli-76">76</a>–<a href="grettis-saga.html#kafli-77">77</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Skeggi Steinvararson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Skeggi skammhöndungur Gamalson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-83">83</a>–<a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Snorri goði</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-49">49</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-59">59</a>, <a href="grettis-saga.html#kafli-68">68</a>, <a href="grettis-saga.html#kafli-76">76</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Snækollur berserkur</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-40">40</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Spes</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-87">87</a>–<a href="grettis-saga.html#kafli-92">92</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Steinn prestur á Eyjardalsá</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-64">64</a>–<a href="grettis-saga.html#kafli-66">66</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Steinn Þorgestsson lögsögumaður</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-77">77</a>, <a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Steinvör á Sandhaugum</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-64">64</a>–<a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Sveinn jarl Hákonarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-19">19</a>, <a href="grettis-saga.html#kafli-22">22</a>–<a href="grettis-saga.html#kafli-24">24</a>, <a href="grettis-saga.html#kafli-37">37</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Vermundur hinn mjóvi</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-52">52</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ásdís Bárðardóttir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-13">13</a>–<a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-16">16</a>–<a href="grettis-saga.html#kafli-17">17</a>, <a href="grettis-saga.html#kafli-37">37</a>, <a href="grettis-saga.html#kafli-45">45</a>, <a href="grettis-saga.html#kafli-47">47</a>–<a href="grettis-saga.html#kafli-48">48</a>, <a href="grettis-saga.html#kafli-69">69</a>, <a href="grettis-saga.html#kafli-83">83</a>–<a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ásgrímur Öndóttsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-7">7</a>–<a href="grettis-saga.html#kafli-8">8</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ásmundur hærulangur Þorgrímsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-13">13</a>–<a href="grettis-saga.html#kafli-17">17</a>, <a href="grettis-saga.html#kafli-25">25</a>, <a href="grettis-saga.html#kafli-37">37</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ásmundur Öndóttsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-7">7</a>–<a href="grettis-saga.html#kafli-8">8</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Æsa Ófeigsdóttir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-3">3</a>, <a href="grettis-saga.html#kafli-9">9</a>–<a href="grettis-saga.html#kafli-11">11</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ófeigur grettir Einarsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-3">3</a>, <a href="grettis-saga.html#kafli-6">6</a>, <a href="grettis-saga.html#kafli-10">10</a>–<a href="grettis-saga.html#kafli-12">12</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ólafur konungur Haraldsson hinn helgi</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-37">37</a>–<a href="grettis-saga.html#kafli-39">39</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Óspakur Glúmsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-14">14</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-83">83</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Ögmundur illi</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-19">19</a>–<a href="grettis-saga.html#kafli-20">20</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Öndóttur kráka</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-3">3</a>, <a href="grettis-saga.html#kafli-6">6</a>–<a href="grettis-saga.html#kafli-7">7</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Önundur tréfótur Ófeigsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-1">1</a>–<a href="grettis-saga.html#kafli-12">12</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorbjörg hin digra Ólafsdóttir</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-52">52</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorbjörn öngull Þórðarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-70">70</a>, <a href="grettis-saga.html#kafli-72">72</a>–<a href="grettis-saga.html#kafli-73">73</a>, <a href="grettis-saga.html#kafli-76">76</a>–<a href="grettis-saga.html#kafli-86">86</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorbjörn öxnamegin Arnórsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-30">30</a>, <a href="grettis-saga.html#kafli-36">36</a>, <a href="grettis-saga.html#kafli-42">42</a>–<a href="grettis-saga.html#kafli-48">48</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorgeir Hávarðsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-50">50</a>–<a href="grettis-saga.html#kafli-51">51</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorgils Arason</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-27">27</a>, <a href="grettis-saga.html#kafli-49">49</a>–<a href="grettis-saga.html#kafli-51">51</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorgrímur hærukollur Önundarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-11">11</a>–<a href="grettis-saga.html#kafli-13">13</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorkell krafla Þorgrímsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-13">13</a>, <a href="grettis-saga.html#kafli-16">16</a>, <a href="grettis-saga.html#kafli-25">25</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorkell í Sálfti</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-20">20</a>–<a href="grettis-saga.html#kafli-24">24</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þormóður Kolbrúnarskáld</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-25">25</a>, <a href="grettis-saga.html#kafli-27">27</a>, <a href="grettis-saga.html#kafli-50">50</a>–<a href="grettis-saga.html#kafli-51">51</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorsteinn Kuggason</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-26">26</a>, <a href="grettis-saga.html#kafli-48">48</a>–<a href="grettis-saga.html#kafli-49">49</a>, <a href="grettis-saga.html#kafli-53">53</a>–<a href="grettis-saga.html#kafli-54">54</a>, <a href="grettis-saga.html#kafli-67">67</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorsteinn drómundur Ásmundarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-13">13</a>, <a href="grettis-saga.html#kafli-24">24</a>, <a href="grettis-saga.html#kafli-85">85</a>–<a href="grettis-saga.html#kafli-93">93</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorvaldur Ásgeirsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-25">25</a>, <a href="grettis-saga.html#kafli-44">44</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þorvaldur á Reykjum</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-69">69</a>, <a href="grettis-saga.html#kafli-75">75</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þrándur Bjarnarson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-2">2</a>–<a href="grettis-saga.html#kafli-7">7</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þuríður, fóstra Þorbjarnar önguls</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-78">78</a>–<a href="grettis-saga.html#kafli-81">81</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þórhallur í Forsæludal</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-32">32</a>–<a href="grettis-saga.html#kafli-35">35</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þórir rauðskeggur</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-56">56</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þórir í Garði / Þórir Skeggjason</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-46">46</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-56">56</a>–<a href="grettis-saga.html#kafli-57">57</a>, <a href="grettis-saga.html#kafli-63">63</a>, <a href="grettis-saga.html#kafli-67">67</a>, <a href="grettis-saga.html#kafli-82">82</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þórir þömb</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-19">19</a>–<a href="grettis-saga.html#kafli-20">20</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þóroddur Snorrason</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-68">68</a>–<a href="grettis-saga.html#kafli-69">69</a></td>
+      </tr>
+      <tr class="idx-row">
+        <td class="idx-name">Þóroddur drápustúfur Arnórsson</td>
+        <td class="idx-chapters"><a href="grettis-saga.html#kafli-30">30</a>, <a href="grettis-saga.html#kafli-48">48</a>–<a href="grettis-saga.html#kafli-49">49</a>, <a href="grettis-saga.html#kafli-51">51</a>, <a href="grettis-saga.html#kafli-83">83</a>–<a href="grettis-saga.html#kafli-84">84</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="view-panel" id="view-tengsl">
+    <div class="legend">
+      <span class="item"><span class="line l-fjolskylda"></span> Fjölskylda</span>
+      <span class="item"><span class="line l-vinir"></span> Vinir / bandamenn</span>
+      <span class="item"><span class="line l-ovinir"></span> Óvinir</span>
+      <span class="item"><span class="line l-ast"></span> Ástarsamband / hjónaband</span>
+    </div>
+    <div class="rel-wrap">
+<svg viewBox="0 0 1600 1500" xmlns="http://www.w3.org/2000/svg" class="rel-svg">
+<style>
+  .node-label { font-family:'Fraunces', serif; font-weight:600; fill:var(--bone); }
+</style>
+<line x1="800.0" y1="790.0" x2="495.1" y2="651.9" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="559.5" y2="564.7" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="495.1" y1="651.9" x2="559.5" y2="564.7" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="1038.5" y2="566.6" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="637.6" y2="486.2" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="746.7" y2="467.2" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="855.6" y2="453.5" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="958.4" y2="493.7" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="1109.9" y2="649.6" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="746.7" y1="467.2" x2="721.3" y2="313.6" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="721.3" y1="313.6" x2="696.6" y2="163.6" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="878.3" y1="315.5" x2="903.8" y2="161.6" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="1034.4" y1="351.5" x2="1104.1" y2="221.1" stroke="#8ba07c" stroke-width="2.2" opacity="0.85"/>
+<line x1="746.7" y1="467.2" x2="637.6" y2="486.2" stroke="#c97fa0" stroke-width="2" opacity="0.85" stroke-dasharray="2,4"/>
+<line x1="855.6" y1="453.5" x2="878.3" y2="315.5" stroke="#c97fa0" stroke-width="2" opacity="0.85" stroke-dasharray="2,4"/>
+<line x1="958.4" y1="493.7" x2="1034.4" y2="351.5" stroke="#c97fa0" stroke-width="2" opacity="0.85" stroke-dasharray="2,4"/>
+<line x1="1038.5" y1="566.6" x2="1154.6" y2="457.9" stroke="#c97fa0" stroke-width="2" opacity="0.85" stroke-dasharray="2,4"/>
+<line x1="1154.6" y1="457.9" x2="1262.6" y2="356.7" stroke="#c97fa0" stroke-width="2" opacity="0.85" stroke-dasharray="2,4"/>
+<line x1="800.0" y1="790.0" x2="1126.0" y2="798.9" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="1127.0" y2="875.7" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="1089.3" y2="942.6" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="1047.6" y2="1004.7" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="998.2" y2="1063.5" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="935.6" y2="1112.4" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="855.3" y2="1114.0" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="780.1" y2="1121.1" stroke="#7ea9c9" stroke-width="2" opacity="0.85" stroke-dasharray="6,5"/>
+<line x1="800.0" y1="790.0" x2="662.9" y2="1105.3" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="570.5" y2="1058.8" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="511.3" y2="973.9" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="475.4" y2="880.0" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="800.0" y1="790.0" x2="445.8" y2="780.7" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="495.1" y1="651.9" x2="570.5" y2="1058.8" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<line x1="511.3" y1="973.9" x2="1038.5" y2="566.6" stroke="#c1622d" stroke-width="2.6" opacity="0.85"/>
+<circle cx="800.0" cy="790.0" r="42" fill="#c1622d" stroke="#e0824c" stroke-width="1.5"/>
+<text x="800.0" y="790.0" text-anchor="middle" class="node-label" font-size="15" dominant-baseline="middle">Grettir</text>
+<circle cx="495.1" cy="651.9" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="460.5" y="636.2" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Atli</text>
+<circle cx="559.5" cy="564.7" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="531.8" y="538.8" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Illugi</text>
+<circle cx="637.6" cy="486.2" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="619.7" y="452.6" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Ásdís</text>
+<circle cx="746.7" cy="467.2" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="740.5" y="429.7" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Ásmundur</text>
+<circle cx="855.6" cy="453.5" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="861.7" y="416.0" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Þórdís</text>
+<circle cx="958.4" cy="493.7" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="976.3" y="460.2" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Rannveig</text>
+<circle cx="1038.5" cy="566.6" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1066.2" y="540.7" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Þorsteinn drómundur</text>
+<circle cx="1109.9" cy="649.6" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1144.5" y="633.9" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Jökull Bárðarson</text>
+<circle cx="1126.0" cy="798.9" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1164.0" y="799.9" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Þorfinnur Kársson</text>
+<circle cx="1127.0" cy="875.7" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1163.7" y="885.3" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Hallmundur</text>
+<circle cx="1089.3" cy="942.6" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1122.9" y="960.3" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Björn Hítdælakappi</text>
+<circle cx="1047.6" cy="1004.7" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1076.3" y="1029.6" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Þorbjörg digra</text>
+<circle cx="998.2" cy="1063.5" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1020.5" y="1094.2" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Guðmundur ríki</text>
+<circle cx="935.6" cy="1112.4" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="950.4" y="1147.5" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Snorri goði</text>
+<circle cx="855.3" cy="1114.0" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="861.7" y="1151.5" text-anchor="start" class="node-label" font-size="15" dominant-baseline="middle">Auðun</text>
+<circle cx="780.1" cy="1121.1" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="777.8" y="1159.0" text-anchor="middle" class="node-label" font-size="15" dominant-baseline="middle">Barði Guðmundsson</text>
+<circle cx="662.9" cy="1105.3" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="647.7" y="1140.2" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Glámur</text>
+<circle cx="570.5" cy="1058.8" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="545.8" y="1087.6" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Þorbjörn öxnamegin</text>
+<circle cx="511.3" cy="973.9" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="479.2" y="994.3" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Þorbjörn öngull</text>
+<circle cx="475.4" cy="880.0" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="438.7" y="890.2" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Þuríður</text>
+<circle cx="445.8" cy="780.7" r="28" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="407.8" y="779.7" text-anchor="end" class="node-label" font-size="15" dominant-baseline="middle">Gísli Þorsteinsson</text>
+<circle cx="878.3" cy="315.5" r="22" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="883.6" y="283.9" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Glúmur</text>
+<circle cx="1034.4" cy="351.5" r="22" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1049.4" y="323.3" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Gamli Þórhallsson</text>
+<circle cx="1154.6" cy="457.9" r="22" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1177.9" y="436.0" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Spes</text>
+<circle cx="721.3" cy="313.6" r="22" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="716.1" y="282.0" text-anchor="end" class="node-label" font-size="12.5" dominant-baseline="middle">Þorgrímur hærukollur</text>
+<circle cx="1262.6" cy="356.7" r="17" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1282.4" y="338.2" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Sigurður</text>
+<circle cx="903.8" cy="161.6" r="17" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="908.2" y="134.9" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Óspakur</text>
+<circle cx="1104.1" cy="221.1" r="17" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="1116.8" y="197.3" text-anchor="start" class="node-label" font-size="12.5" dominant-baseline="middle">Grímur (bróðir Gamla)</text>
+<circle cx="696.6" cy="163.6" r="17" fill="#1b1f22" stroke="#2c3236" stroke-width="1.5"/>
+<text x="692.2" y="136.9" text-anchor="end" class="node-label" font-size="12.5" dominant-baseline="middle">Önundur tréfótur</text>
+</svg>
+    </div>
+  </div>
+
+</div>
+<script>
+document.querySelectorAll('.section-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('view-' + tab.dataset.view).classList.add('active');
+  });
+});
+
+document.querySelectorAll('.p-more-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const body = document.getElementById(btn.dataset.target);
+    body.classList.toggle('open');
+    const isOpen = body.classList.contains('open');
+    btn.innerHTML = (isOpen ? btn.textContent.replace('↓','↑') : btn.textContent.replace('↑','↓'));
+  });
+});
+
+const idxSearchEl = document.getElementById('idxSearch');
+if (idxSearchEl){
+  idxSearchEl.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('#idxBody .idx-row').forEach(row => {
+      const name = row.querySelector('.idx-name').textContent.toLowerCase();
+      row.classList.toggle('hidden', q !== '' && !name.includes(q));
+    });
+  });
+}
+</script>
+</body>
+</html>

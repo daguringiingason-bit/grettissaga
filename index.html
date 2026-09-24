@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grettis saga Ásmundarsonar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14171a;
+  --panel:#1b1f22;
+  --panel-2:#20252a;
+  --hairline:#2c3236;
+  --bone:#e9e4d8;
+  --bone-dim:#c8c2b4;
+  --mist:#93a099;
+  --moss:#8ba07c;
+  --moss-dim:#5f7256;
+  --ember:#c1622d;
+  --ember-bright:#e0824c;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--bone);
+  font-family:'Lora', serif;
+  line-height:1.7;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  padding:16px 32px;
+  background:rgba(20,23,26,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+}
+.topbar .brand{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:17px;
+  text-decoration:none;
+  color:var(--bone);
+  white-space:nowrap;
+}
+.topbar nav{
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+}
+.topbar nav a{
+  text-decoration:none;
+  color:var(--mist);
+  font-size:14px;
+  font-family:'Fraunces', serif;
+  letter-spacing:.01em;
+  padding:4px 2px;
+  border-bottom:1px solid transparent;
+}
+.topbar nav a:hover, .topbar nav a.current{
+  color:var(--ember-bright);
+  border-bottom-color:var(--ember-bright);
+}
+@media (max-width:700px){
+  .topbar{padding:14px 18px;}
+  .topbar nav{gap:14px;}
+  .topbar nav a{font-size:13px;}
+}
+
+
+.hero{
+  max-width:760px;
+  margin:0 auto;
+  padding:90px 24px 50px;
+  text-align:center;
+}
+.hero .eftirn{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  color:var(--moss);
+  font-size:14px;
+  margin:0 0 14px;
+}
+.hero h1{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:52px;
+  line-height:1.1;
+  margin:0 0 20px;
+  color:var(--bone);
+}
+.hero p{
+  color:var(--bone-dim);
+  font-size:17px;
+  max-width:520px;
+  margin:0 auto;
+}
+.cards{
+  max-width:900px;
+  margin:0 auto;
+  padding:20px 24px 120px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:18px;
+}
+.site-card{
+  display:block;
+  text-decoration:none;
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  border-radius:8px;
+  padding:26px 22px;
+  transition:border-color .2s;
+}
+.site-card:hover{border-color:var(--moss);}
+.site-card .num{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:13px;
+  color:var(--ember-bright);
+  display:block;
+  margin-bottom:12px;
+}
+.site-card h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:21px;
+  margin:0 0 10px;
+  color:var(--bone);
+}
+.site-card p{
+  font-size:14px;
+  color:var(--mist);
+  margin:0;
+  line-height:1.55;
+}
+.site-card.featured{
+  grid-column:1 / -1;
+  background:linear-gradient(160deg, var(--panel), var(--panel-2));
+  border-color:var(--moss-dim);
+}
+.site-card.featured h2{font-size:26px;}
+
+
+.pin-gate{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.pin-box{
+  background:var(--panel);
+  border:1px solid var(--hairline);
+  border-radius:12px;
+  padding:36px 32px;
+  max-width:320px;
+  width:100%;
+  text-align:center;
+}
+.pin-box h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:22px;
+  color:var(--bone);
+  margin:0 0 8px;
+}
+.pin-box p{
+  font-size:13.5px;
+  color:var(--mist);
+  margin:0 0 20px;
+}
+.pin-box input{
+  width:100%;
+  background:var(--ink);
+  border:1px solid var(--hairline);
+  color:var(--bone);
+  border-radius:8px;
+  padding:12px;
+  font-family:'Fraunces', serif;
+  font-size:24px;
+  letter-spacing:0.5em;
+  text-align:center;
+  margin-bottom:14px;
+  box-sizing:border-box;
+}
+.pin-box input:focus{ outline:none; border-color:var(--moss); }
+.pin-box button{
+  width:100%;
+  background:var(--moss-dim);
+  border:none;
+  color:var(--bone);
+  font-family:'Fraunces', serif;
+  font-size:15px;
+  padding:11px;
+  border-radius:24px;
+  cursor:pointer;
+}
+.pin-box button:hover{ background:var(--moss); }
+.pin-error{
+  color:var(--ember-bright);
+  font-size:12.5px;
+  margin-top:12px;
+  display:none;
+}
+.guide{
+  max-width:760px;
+  margin:20px auto 0;
+  padding:48px 24px 100px;
+  border-top:1px solid var(--hairline);
+}
+.guide h2{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:26px;
+  color:var(--bone);
+  margin:0 0 8px;
+  text-align:center;
+}
+.guide-intro{
+  text-align:center;
+  color:var(--mist);
+  font-size:14px;
+  margin:0 0 36px;
+}
+.guide-item{
+  margin-bottom:26px;
+}
+.guide-item h3{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:16px;
+  color:var(--ember-bright);
+  margin:0 0 8px;
+}
+.guide-item p{
+  font-size:14px;
+  color:var(--bone-dim);
+  line-height:1.7;
+  margin:0;
+}
+.guide-item strong{
+  color:var(--moss);
+  font-weight:600;
+}
+.guide-footer{
+  margin-top:30px;
+  padding-top:20px;
+  border-top:1px solid var(--hairline);
+  font-size:12.5px;
+  color:var(--mist);
+  font-style:italic;
+  text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="pin-gate" id="pinGate">
+  <div class="pin-box">
+    <h2>Grettis saga</h2>
+    <p>Sláðu inn PIN-ið til að halda áfram</p>
+    <input type="password" id="pinInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+    <button id="pinSubmit">Áfram</button>
+    <p class="pin-error" id="pinError">Rangt PIN, reyndu aftur.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'grettis-pin-ok';
+  var CODE = '1234';
+  var gate = document.getElementById('pinGate');
+  if (localStorage.getItem(KEY) === 'yes') {
+    gate.style.display = 'none';
+  } else {
+    var input = document.getElementById('pinInput');
+    function tryUnlock(){
+      if (input.value === CODE) {
+        localStorage.setItem(KEY, 'yes');
+        gate.style.display = 'none';
+      } else {
+        document.getElementById('pinError').style.display = 'block';
+        input.value = '';
+      }
+    }
+    document.getElementById('pinSubmit').addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') tryUnlock(); });
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+})();
+</script>
+
+<header class="topbar">
+  <a class="brand" href="index.html">Grettis saga</a>
+  <nav>
+    <a href="index.html" class="current">Forsíða</a>
+    <a href="grettis-saga.html">Lesa söguna</a>
+    <a href="personur.html">Persónur</a>
+    <a href="timalina.html">Tímalína</a>
+    <a href="laera.html">Læra</a>
+    <a href="myndbond.html">Myndbönd</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <p class="eftirn">Íslendingasaga</p>
+  <h1>Grettis saga Ásmundarsonar</h1>
+  <p>Sagan um sterkasta mann Íslands — frá langafa hans Önundi tréfóti til falls Grettis í Drangey. Veldu hvað þú vilt skoða.</p>
+</div>
+
+<div class="cards">
+  <a class="site-card featured" href="grettis-saga.html">
+    <span class="num">Aðalefni</span>
+    <h2>Lesa söguna — allir 93 kaflar</h2>
+    <p>Fullur texti sögunnar, kafli fyrir kafla, með einföldu kaflaágripi neðst í hverjum kafla þegar þú hefur lokið lestrinum.</p>
+  </a>
+  <a class="site-card" href="personur.html">
+    <span class="num">01</span>
+    <h2>Persónur</h2>
+    <p>Lýsingar, full nafnaskrá og tengslanet — allt um fólkið í sögunni á einum stað.</p>
+  </a>
+  <a class="site-card" href="timalina.html">
+    <span class="num">02</span>
+    <h2>Tímalína</h2>
+    <p>Helstu atburðir í réttri röð með ártali og aldri Grettis, tengt beint við viðkomandi kafla.</p>
+  </a>
+  <a class="site-card" href="laera.html">
+    <span class="num">03</span>
+    <h2>Læra</h2>
+    <p>Próf, flashcards og pörunarleikur á einum stað — veldu kafla og æfðu þig eins og þér hentar.</p>
+  </a>
+  <a class="site-card" href="myndbond.html">
+    <span class="num">04</span>
+    <h2>Myndbönd</h2>
+    <p>Stutt yfirlitsmyndbönd fyrir hvern hluta sögunnar, með stillanlegum spilunarhraða.</p>
+  </a>
+</div>
+
+<div class="guide">
+  <h2>Svona virkar síðan</h2>
+  <p class="guide-intro">Stutt yfirlit yfir alla hluta vefsins — lestu hér ef þú ert ekki viss hvar á að byrja.</p>
+
+  <div class="guide-item">
+    <h3>📖 Lesa söguna</h3>
+    <p>Allir 93 kaflar Grettis sögu, í heild sinni. Veldu kafla úr listanum vinstra megin (eða sláðu inn kaflanúmer efst), lestu, og smelltu svo á "Sýna kaflaágrip" neðst í hverjum kafla til að fá einfaldaða útgáfu til upprifjunar. "Fyrri / Næsti kafli" hnapparnir neðst leyfa þér að lesa samfellt. Litla "Aa" táknið efst í hægra horninu opnar lestrarstillingar: stærra letur, lesblindutækt letur (Atkinson Hyperlegible), og ljóst þema í stað dökka bakgrunnsins.</p>
+  </div>
+
+  <div class="guide-item">
+    <h3>🧑‍🤝‍🧑 Persónur</h3>
+    <p>Þrír undirflipar efst á síðunni: <strong>Lýsingar</strong> (stuttar lýsingar á öllu fólki, flokkað eftir því hvar það kemur fyrst við sögu — mikilvægustu persónurnar hafa "Lesa meira" hnapp fyrir ítarlegri lýsingu), <strong>Nafnaskrá</strong> (leitanleg tafla með öllum nöfnum og nákvæmum kaflatilvísunum — smelltu á kaflanúmer til að fara beint í lestrarsíðuna), og <strong>Tengsl</strong> (myndrænt net sem sýnir hvernig persónur tengjast: fjölskylda, vinir, óvinir og ástarsambönd, aðgreint með mismunandi línulit og -mynstri).</p>
+  </div>
+
+  <div class="guide-item">
+    <h3>🕐 Tímalína</h3>
+    <p>Helstu atburðir sögunnar í réttri röð, með áætluðu ártali og aldri Grettis þar sem það er þekkt. Smelltu á kaflanúmer til að lesa þann kafla.</p>
+  </div>
+
+  <div class="guide-item">
+    <h3>🎯 Læra</h3>
+    <p>Þrír undirflipar: <strong>Próf</strong> (veldu kaflahluta eða alla söguna og fáðu sjálfvirkt próf — blanda af krossaspurningum, tengingum og stuttum svörum, í tímaröð, með einkunn í lokin), <strong>Flashcards</strong> (flettispjöld sem hægt er að stokka og fara í gegnum á eigin hraða), og <strong>Pörun</strong> (veldu kaflahluta og paraðu saman atriði sem eiga saman — persónur, lýsingar, staði og atburði — smelltu fyrst á atriði vinstra megin og svo samsvarandi atriði hægra megin).</p>
+  </div>
+
+  <div class="guide-item">
+    <h3>🎬 Myndbönd</h3>
+    <p>Stutt yfirlitsmyndbönd fyrir hvern hluta sögunnar. Veldu myndband úr listanum og stilltu spilunarhraðann (0,25x upp í 2x, eða sláðu inn sérsniðið gildi). Fleiri myndbönd bætast við jafnóðum og þau verða tilbúin.</p>
+  </div>
+
+  <p class="guide-footer">Ábending: allir hlekkir á kaflanúmer, hvar sem þeir birtast á síðunni, fara beint í réttan stað í lestrarsíðuna.</p>
+</div>
+</body>
+</html>
